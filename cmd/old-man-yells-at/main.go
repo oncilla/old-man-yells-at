@@ -125,7 +125,7 @@ func writeImageFile(m image.Image, filename string) error {
 	if err := png.Encode(f, m); err != nil {
 		return err
 	}
-	fmt.Printf("Abe is yelling: %s", filename)
+	fmt.Printf("Abe is yelling: %s\n", filename)
 	return nil
 }
 
