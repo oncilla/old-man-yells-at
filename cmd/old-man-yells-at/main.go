@@ -122,7 +122,11 @@ func writeImageFile(m image.Image, filename string) error {
 	}
 	defer f.Close()
 
-	return png.Encode(f, m)
+	if err := png.Encode(f, m); err != nil {
+		return err
+	}
+	fmt.Printf("Abe is yelling: %s", filename)
+	return nil
 }
 
 func validateOutput(output string) error {
