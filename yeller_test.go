@@ -16,7 +16,9 @@ package yeller_test
 
 import (
 	"bytes"
+	"encoding/base64"
 	"flag"
+	"fmt"
 	"image/png"
 	"io/ioutil"
 	"testing"
@@ -74,4 +76,32 @@ func TestYellAt(t *testing.T) {
 			assert.Equal(t, expected, buf.Bytes())
 		})
 	}
+}
+
+// Hack to do embedding, should be replaced!
+func TestAbeBase64(t *testing.T) {
+	if !*update {
+		return
+	}
+	raw, err := ioutil.ReadFile("fig/old_man_yells_at.png")
+	require.NoError(t, err)
+	ioutil.WriteFile("packed.go", []byte(fmt.Sprintf(
+		`// Copyright 2021 oncilla
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package yeller
+
+var rawOldMan = []byte(%q)
+`, base64.StdEncoding.EncodeToString(raw))), 0666)
 }
