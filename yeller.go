@@ -48,6 +48,6 @@ func YellAt(target image.Image) image.Image {
 
 func scaleDown(target image.Image) image.Image {
 	s := target.Bounds().Size()
-	height := float64(s.Y) * (50 / float64(s.X))
-	return resize.Resize(50, uint(height), target, resize.Lanczos3)
+	height := float64(s.Y) * (95 / float64(s.X))
+	return resize.Resize(95, uint(height), target, resize.Lanczos3)
 }

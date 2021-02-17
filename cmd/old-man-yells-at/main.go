@@ -19,6 +19,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"image"
+	_ "image/gif"
+	_ "image/jpeg"
 	"image/png"
 	"os"
 	"path/filepath"
@@ -41,8 +43,21 @@ func main() {
 
 	executable := filepath.Base(os.Args[0])
 	cmd := &cobra.Command{
-		Use:           executable,
-		Short:         executable + " makes Abe yell at stuff!",
+		Use:   executable + " <target-file>",
+		Short: executable + " makes Abe yell at stuff!",
+		Long: `Enjoy Abe yelling at stuff!
+
+Provide an target image and Abe Simpson will yell at.
+
+By default, the resulting image is created in the current working directory
+as 'old-man-yells-at-<target-basename>.png'. If Abe should redirect his yelling,
+you have the following options:
+
+  - <filename>.png: Create image at the specified filename.
+  - png: Create image at 'old-man-yells-at-<target-basename>.png'.
+  - hex: Write image hex-encoded to stdout.
+  - b64: Write image b64-encoded to stdout.
+`,
 		SilenceErrors: true,
 		Args:          cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -57,8 +72,7 @@ func main() {
 		newCompletion(cmd),
 		newVersion(cmd),
 	)
-	cmd.Flags().StringVarP(&flags.out, "output", "o", "png", "")
-
+	cmd.Flags().StringVarP(&flags.out, "output", "o", "png", `[png, b64, hex, <filename>.png]`)
 	if err := cmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 		os.Exit(1)
