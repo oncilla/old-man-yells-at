@@ -1,1 +1,1 @@
-web: bin/old-man-yells-at
+web: bin/old-man-yells-at serve
