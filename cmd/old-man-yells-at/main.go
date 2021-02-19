@@ -70,6 +70,7 @@ you have the following options:
 	}
 	cmd.AddCommand(
 		newCompletion(cmd),
+		newServe(cmd),
 		newVersion(cmd),
 	)
 	cmd.Flags().StringVarP(&flags.out, "output", "o", "png", `[png, b64, hex, <filename>.png]`)
