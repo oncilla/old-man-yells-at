@@ -13,3 +13,6 @@ require (
 	go.uber.org/zap v1.10.0
 	modernc.org/sqlite v1.8.7
 )
+
+// +heroku goVersion 1.15
+// +heroku install ./cmd/...
