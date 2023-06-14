@@ -7,7 +7,7 @@ This is the perfect toolkit to improve your slack emoji game.
 ## Installation
 
 ```
-go get -u github.com/oncilla/old-man-yells-at/cmd/old-man-yells-at
+go install github.com/oncilla/old-man-yells-at/cmd/old-man-yells-at@latest
 ```
 
 ## Usage
