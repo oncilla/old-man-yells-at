@@ -1,8 +1,12 @@
-# Old man yells at stuff!
+# Old man yells at stuff
 
 Use this tool to make Abe Simpson yell at stuff!
 
 This is the perfect toolkit to improve your slack emoji game.
+
+## Repository
+
+Check out the [repository](./repository/) for some pre-baked yelling!
 
 ## Installation
 
