@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="w-full h-full">
+
+<head>
+    <title>Old Man Yells At!</title>
+    <meta charset="utf-8" />
+    <script src="wasm_exec.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("yell-at.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+    </script>
+</head>
+
+<body class="flex w-full h-full flex-col items-center  bg-opacity-0 pt-12"
+    style="background-image:linear-gradient(rgba(248, 248, 248, 0.95), rgba(135, 80, 156, 0.9)), url('old_man_yells_at.png')">
+
+    <div class="flex flex-col gap-y-4 bg-white p-8 shadow-md rounded-2xl">
+        <h1 class="font-bold text-4xl text-cyan-600 mb-4">Old Man Yells At!</h1>
+        <input
+            class="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-100 file:text-cyan-600 hover:file:bg-cyan-200"
+            type="file" id="uploadInput" accept="image/*">
+        <button
+            class="rounded-full py-2 px-4 border-0 text-sm font-semibold bg-cyan-100 text-cyan-600 hover:bg-cyan-200"
+            onclick="transformImage()">
+            Yell at
+        </button>
+        <div class="flex justify-center items-end gap-4">
+            <img class="h-16 aspect-[259/202] w-fit hidden" id="output" src="">
+            <a class="rounded-full py-2 px-4 text-sm font-semibold bg-violet-100 text-violet-600 hover:bg-violet-200 hidden"
+                id="link" href="" download="">
+                Download
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function yell(input, filename) {
+            const result = yellAt(input)
+            if ((result !== undefined) && ('error' in result)) {
+                console.error(result.error)
+                return
+            }
+            const image = "data:image/png;base64," + result.result;
+            document.getElementById('output').src = image
+            document.getElementById('output').classList.remove('hidden')
+            document.getElementById('link').href = image
+            document.getElementById('link').download = "old-man-yells-at-" + filename
+            document.getElementById('link').classList.remove('hidden')
+        }
+
+        function transformImage() {
+            const input = document.getElementById('uploadInput');
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const image = new Image();
+                    image.onload = function () {
+                        console.log(file);
+                        yell(image.src, file.name);
+                    }
+                    image.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function loadImageData(url) {
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.onload = function () {
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    context.drawImage(image, 0, 0);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    resolve(imageData);
+                };
+                image.onerror = function (error) {
+                    reject(error);
+                };
+                image.src = url;
+            });
+        }
+    </script>
+</body>
+
+</html>

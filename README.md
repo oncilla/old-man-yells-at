@@ -55,3 +55,11 @@ Use "old-man-yells-at [command] --help" for more information about a command.
 ## Origin
 
 [The Simpsons](https://youtu.be/tJ-LivK4-78)
+
+## Contribute
+
+To regenerate the webassembly bundle, run the following:
+
+```txt
+GOOS=js GOARCH=wasm go build -o ./docs/yell-at.wasm ./cmd/wasm/
+```
