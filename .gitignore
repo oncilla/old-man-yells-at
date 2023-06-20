@@ -18,3 +18,5 @@
 # vendor/
 
 dist/
+cmd/server
+tailwind.config.js
