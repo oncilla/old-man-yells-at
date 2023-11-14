@@ -46,6 +46,10 @@ func yellerWrapper() js.Func {
 		if err := png.Encode(enc, yelledAt); err != nil {
 			return newError(fmt.Errorf("encoding image: %w", err))
 		}
+		if err := enc.Close(); err != nil {
+			return newError(fmt.Errorf("closing encoder: %w", err))
+		}
+
 		return map[string]any{
 			"result": buf.String(),
 		}
