@@ -7,8 +7,19 @@ This is the perfect toolkit to improve your slack emoji game.
 ## Repository
 
 Check out the [repository](./repository/) for some pre-baked yelling!
+There are over 500 yellings to choose from!
 
-## Installation
+## Browser Version
+
+Visit [oncilla.github.io/old-man-yells-at/](https://oncilla.github.io/old-man-yells-at/) and let Abe yell at stuff from the comfort of your browser!
+All the code is executed locally in your browser and the image does not leave your machine.
+
+## CLI Installation
+
+We provide statically built binaries of the CLI on our [GitHub releases](https://github.com/oncilla/old-man-yells-at/releases).
+Download the appropriate bundle for your platform from the assets and run it locally.
+
+If you have the Go toolchain installed, you can also simply install the CLI by running the following command:
 
 ```
 go install github.com/oncilla/old-man-yells-at/cmd/old-man-yells-at@latest
