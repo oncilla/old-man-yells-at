@@ -38,10 +38,10 @@ func YellAt(target image.Image) image.Image {
 	bounds := oldman.Bounds()
 
 	yelled := image.NewRGBA(bounds)
-	draw.Draw(yelled, bounds, oldman, image.Point{}, draw.Src)
-
 	at := scaleDown(target)
-	draw.Draw(yelled, at.Bounds(), at, image.Point{}, draw.Over)
+
+	draw.Draw(yelled, at.Bounds(), at, image.Point{}, draw.Src)
+	draw.Draw(yelled, bounds, oldman, image.Point{}, draw.Over)
 
 	return yelled
 }
