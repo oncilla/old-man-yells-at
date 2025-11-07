@@ -30,7 +30,7 @@ go install github.com/oncilla/old-man-yells-at/cmd/old-man-yells-at@latest
 ```
 Enjoy Abe yelling at stuff!
 
-Provide an target image and Abe Simpson will yell at.
+Provide a target image and Abe Simpson will yell at.
 
 By default, the resulting image is created in the current working directory
 as 'old-man-yells-at-<target-basename>.png'. If Abe should redirect his yelling,
