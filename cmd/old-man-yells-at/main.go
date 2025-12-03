@@ -26,6 +26,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/nfnt/resize"
+
 	"github.com/spf13/cobra"
 
 	yeller "github.com/oncilla/old-man-yells-at"
@@ -38,7 +40,8 @@ type CommandPather interface {
 
 func main() {
 	var flags struct {
-		out string
+		out  string
+		size uint
 	}
 
 	executable := filepath.Base(os.Args[0])
@@ -65,7 +68,7 @@ you have the following options:
 				return err
 			}
 			cmd.SilenceUsage = true
-			return yell(args[0], flags.out)
+			return yell(args[0], flags.out, flags.size)
 		},
 	}
 	cmd.AddCommand(
@@ -74,18 +77,23 @@ you have the following options:
 		newVersion(cmd),
 	)
 	cmd.Flags().StringVarP(&flags.out, "output", "o", "png", `[png, b64, hex, <filename>.png]`)
+	cmd.Flags().UintVarP(&flags.size, "size", "s", 0, "Resize image to size x size")
 	if err := cmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 		os.Exit(1)
 	}
 }
 
-func yell(filename, output string) error {
+func yell(filename, output string, size uint) error {
 	input, err := loadImage(filename)
 	if err != nil {
 		return err
 	}
 	m := yeller.YellAt(input)
+
+	if size > 0 {
+		m = resize.Resize(size, size, m, resize.Lanczos3)
+	}
 
 	switch {
 	case output == "png":
