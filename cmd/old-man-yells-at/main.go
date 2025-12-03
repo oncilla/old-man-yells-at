@@ -27,6 +27,7 @@ import (
 	"strings"
 
 	"github.com/nfnt/resize"
+	_ "golang.org/x/image/webp"
 
 	"github.com/spf13/cobra"
 
