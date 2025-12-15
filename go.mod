@@ -34,5 +34,5 @@ require (
 	modernc.org/memory v1.11.0 // indirect
 )
 
-// +heroku goVersion 1.15
+// +heroku goVersion 1.25
 // +heroku install ./cmd/...
