@@ -1,6 +1,6 @@
 module github.com/oncilla/old-man-yells-at
 
-go 1.24.0
+go 1.25
 
 require (
 	github.com/dgraph-io/ristretto v0.2.0
